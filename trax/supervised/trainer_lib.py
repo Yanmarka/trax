@@ -740,8 +740,9 @@ def _jit_update_fn(predict_fn, loss_fn, optimizer, n_devices, jit=True):
         lambda g: math.psum(g, 'batch') / math.psum(np.array(1.0), 'batch'),
         grads)
     print("Completed jax.tree_util.tree_map")
-    return optimizer.tree_update(
-        i, grads, weights, slots, opt_params), state, subrng
+    return_value = optimizer.tree_update(i, grads, weights, slots, opt_params), state, subrng
+    print("Completed computing return value")
+    return return_value
 
   def update(i, opt_state, batch, state, rng):
     return mapped_update(np.repeat(i, n_devices), opt_state, batch, state, rng)
