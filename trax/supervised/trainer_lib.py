@@ -329,12 +329,16 @@ class Trainer(object):
     print("Running training step")
     opt_param_updates = self._for_n_devices(
         math.nested_map(np.array, self.nontrainable_params))
+    print("First part done")
     opt_state = self._opt_state
+    print("Second part done")
     opt_state.opt_params.update(opt_param_updates)
+    print("Third part done")
 
     # Run the update.
     (weights, slots), self._model_state, self._rngs = self._jit_update_fn(
         self._step, opt_state, batch, self._model_state, self._rngs)
+    print("Fourth part done")
     self._model_state = self._map_to_state_dicts(self._state_dicts_update)
     self._opt_state = opt_state._replace(weights=weights, slots=slots)
     self._step += 1
