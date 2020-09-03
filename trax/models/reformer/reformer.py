@@ -695,7 +695,7 @@ def DecoderBlock(d_model, d_ff, d_attention_key, d_attention_value,
   ]
 
 
-def ReformerLM(vocab_size=,
+def ReformerLM(vocab_size=16000,
                d_model=512,
                d_ff=2048,
                d_attention_key=64,
