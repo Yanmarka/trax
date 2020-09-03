@@ -326,6 +326,7 @@ class Trainer(object):
     # Calculate the current optimizer parameters.
     # TODO(pkozakowski): Optimizer parameters get polluted with model state,
     # which doesn't break anything but is weird. Filter it out.
+    print("Running training step")
     opt_param_updates = self._for_n_devices(
         math.nested_map(np.array, self.nontrainable_params))
     opt_state = self._opt_state
