@@ -695,7 +695,7 @@ def DecoderBlock(d_model, d_ff, d_attention_key, d_attention_value,
   ]
 
 
-def ReformerLM(vocab_size,
+def ReformerLM(vocab_size=,
                d_model=512,
                d_ff=2048,
                d_attention_key=64,
@@ -706,7 +706,7 @@ def ReformerLM(vocab_size,
                max_len=2048,
                n_chunks=0,
                n_attention_chunks=1,
-               attention_type=tl.DotProductCausalAttention,
+               attention_type=tl.LSHSelfAttention,
                share_qk=False,
                axial_pos_shape=(),
                d_axial_pos_embs=None,
