@@ -115,14 +115,17 @@ class Optimizer(object):
 
   def tree_update(self, step, grad_tree, weight_tree, slots, opt_params):
     """Assembles node-local weight and slot updates for the full layer tree."""
+    print("Starting tree update")
     grads_flat = _tree_flatten(grad_tree)
     weights_flat = _tree_flatten(weight_tree)
+    print("Completed flatten")
     updated_pairs = [
         self._update_and_check(step, grad, weight, slot, opt_params)
         for (grad, weight, slot) in zip(grads_flat, weights_flat, slots)
     ]
     new_weights_flat, self.slots = zip(*updated_pairs)
     new_weights, _ = _tree_unflatten(new_weights_flat, weight_tree)
+    print("Finished tree update")
     return new_weights, self.slots
 
 
