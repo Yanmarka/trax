@@ -727,8 +727,11 @@ def _jit_update_fn(predict_fn, loss_fn, optimizer, n_devices, jit=True):
     # We assume all tensors have the first dimension = n_devices.
     weights, slots, opt_params = opt_state
     rng, subrng = jax_random.split(rng)
+    print("Completed RNG")
     grad_fn = math.grad(model_and_loss_call, has_aux=True)
+    print("Completed math.grad")
     grads, state = grad_fn(weights, batch, state, rng)
+    print("Completed grad_fn")
     # We do a psum(1.0) here instead of `n_devices` since `n_devices` is just
     # the number of devices on this host machine, however psum goes over all
     # devices of all hosts (ex: a TPU pod) and we need to be averaging over all
@@ -736,6 +739,7 @@ def _jit_update_fn(predict_fn, loss_fn, optimizer, n_devices, jit=True):
     grads = jax.tree_util.tree_map(
         lambda g: math.psum(g, 'batch') / math.psum(np.array(1.0), 'batch'),
         grads)
+    print("Completed jax.tree_util.tree_map")
     return optimizer.tree_update(
         i, grads, weights, slots, opt_params), state, subrng
 
