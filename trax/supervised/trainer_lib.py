@@ -745,7 +745,9 @@ def _jit_update_fn(predict_fn, loss_fn, optimizer, n_devices, jit=True):
     return return_value
 
   def update(i, opt_state, batch, state, rng):
-    return mapped_update(np.repeat(i, n_devices), opt_state, batch, state, rng)
+    mapped_update_return_value = mapped_update(np.repeat(i, n_devices), opt_state, batch, state, rng)
+    print("Completed computing mapped update")
+    return mapped_update_return_value
 
   return update
 
