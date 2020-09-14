@@ -335,6 +335,8 @@ def use_backend(name):
   global override_backend
   prev_name_or_backend = override_backend
   override_backend = name
+  print(name)
+  print(override_backend)
   # Run the decorated function in try-finally in case it throws, e.g. for tests.
   try:
     yield
