@@ -23,7 +23,7 @@ import six
 
 import tensorflow.compat.v2 as tf
 
-from trax.tf_numpy.numpy import dtypes
+from trax.tf_numpy.numpy_impl import dtypes
 
 
 def convert_to_tensor(value, dtype=None):
@@ -32,6 +32,8 @@ def convert_to_tensor(value, dtype=None):
   if (dtype is None and isinstance(value, six.integer_types)
       and value >= 2 ** 63):
     dtype = tf.uint64
+  elif (dtype is None and isinstance(value, float)):
+    dtype = dtypes.default_float_type()
   return tf.convert_to_tensor(value, dtype=dtype)
 
 
