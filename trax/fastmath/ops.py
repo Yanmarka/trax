@@ -68,10 +68,7 @@ class RandomBackend(object):
     return backend()['random_get_prng'](seed)
 
   def split(self, prng, num=2):
-    print(backend())
-    print("-----")
-    print(backend('tf'))
-    return backend()['random_split'](prng, num)
+    return force_tf_backend()['random_split'](prng, num)
 
   def uniform(self, *args, **kwargs):
     return backend()['random_uniform'](*args, **kwargs)
@@ -311,8 +308,8 @@ def _get_backend_from_string(name_str):
 @gin.configurable()
 def backend(name='jax'):
   """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""
-  if True:
-    return _get_backend_from_string("tensorflow-numpy")
+  if override_backend:
+    return _get_backend_from_string(override_backend)
 
   if default_backend:
     return _get_backend_from_string(default_backend)
@@ -323,6 +320,19 @@ def backend(name='jax'):
   # name is a string.
   return _get_backend_from_string(name)
 
+def force_tf_backend(name='jax'):
+  """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""
+  if True:
+    return _get_backend_from_string("tensorflow_numpy")
+
+  if default_backend:
+    return _get_backend_from_string(default_backend)
+
+  if isinstance(name, Backend):
+    return _backend_dict[name]
+
+  # name is a string.
+  return _get_backend_from_string(name)
 
 @contextlib.contextmanager
 def use_backend(name):
