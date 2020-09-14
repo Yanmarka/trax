@@ -22,7 +22,7 @@ from trax import layers as tl
 from trax.layers import base
 from trax.layers.combinators import (  # pylint: disable=g-multiple-import
     _pop_rng_and_split, _inputs_from_stack, _outputs_onto_stack)
-from trax.math import numpy as np
+from trax.fastmath import numpy as np
 from trax.math import random
 
 
