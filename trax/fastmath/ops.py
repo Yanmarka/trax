@@ -300,6 +300,7 @@ def set_backend(name):
 def _get_backend_from_string(name_str):
   # name is a string.
   for backend_ in Backend:
+    print(backend_)
     if backend_.value == name_str:
       return _backend_dict[backend_]
   return JAX_BACKEND
