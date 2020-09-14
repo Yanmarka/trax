@@ -1170,7 +1170,8 @@ class LSHSelfAttention(SelfAttention):
     return buckets
 
   def forward_unbatched(self, x, *, weights, state, rng, update_state):
-    attend_rng, output_rng = jax.random.split(rng)
+    fastmath.use_backend('tensorflow-numpy')  # Can be 'jax' or 'tensorflow-numpy'.
+    attend_rng, output_rng = fastmath.random.split(rng)
     w_q, w_v, w_o = weights
 
     q = np.matmul(x, w_q)
