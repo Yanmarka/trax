@@ -311,9 +311,8 @@ def _get_backend_from_string(name_str):
 @gin.configurable()
 def backend(name='jax'):
   """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""
-  print(override_backend)
-  if override_backend:
-    return _get_backend_from_string(override_backend)
+  if True:
+    return _get_backend_from_string("tensorflow-numpy")
 
   if default_backend:
     return _get_backend_from_string(default_backend)
