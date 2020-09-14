@@ -323,7 +323,9 @@ def backend(name='jax'):
 def force_tf_backend(name='jax'):
   """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""
   if True:
-    return _get_backend_from_string("tensorflow_numpy")
+    my_backend = _get_backend_from_string("tensorflow_numpy")
+    print(my_backend) 
+    return my_backend
 
   if default_backend:
     return _get_backend_from_string(default_backend)
