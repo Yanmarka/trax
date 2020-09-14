@@ -39,7 +39,7 @@ from jax.scipy.special import logsumexp
 
 from trax.layers import base
 from trax.math import numpy as np
-
+from trax import fastmath
 
 ####################################################### Functions
 
@@ -1178,7 +1178,7 @@ class LSHSelfAttention(SelfAttention):
 
     if update_state:
       _, old_hash_rng = state
-      hash_rng, hash_subrng = jax.random.split(old_hash_rng)
+      hash_rng, hash_subrng = fastmath.random.split(old_hash_rng)
       buckets = self.hash_vectors(q, hash_subrng)
       state = (buckets, hash_rng)
     else:
