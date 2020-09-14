@@ -68,7 +68,7 @@ class RandomBackend(object):
     return backend()['random_get_prng'](seed)
 
   def split(self, prng, num=2):
-    return backend()['random_split'](prng, num)
+    return backend('tf')['random_split'](prng, num)
 
   def uniform(self, *args, **kwargs):
     return backend()['random_uniform'](*args, **kwargs)
