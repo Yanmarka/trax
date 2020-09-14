@@ -322,20 +322,9 @@ def backend(name='jax'):
   return _get_backend_from_string(name)
 
 def force_tf_backend(name='jax'):
-  """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""
-  if True:
-    my_backend = _get_backend_from_string("tensorflow_numpy")
-    print(my_backend) 
-    return my_backend
+  """Returns the backend used to provide fastmath ops ('tf' or 'jax')."""  
+  return _backend_dict[Backend.TFNP]
 
-  if default_backend:
-    return _get_backend_from_string(default_backend)
-
-  if isinstance(name, Backend):
-    return _backend_dict[name]
-
-  # name is a string.
-  return _get_backend_from_string(name)
 
 @contextlib.contextmanager
 def use_backend(name):
