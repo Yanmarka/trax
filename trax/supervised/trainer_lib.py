@@ -476,7 +476,9 @@ class Trainer(object):
 
   def log_step(self, step_message):
     log('Step % 6d: %s' % (self.step, step_message))
-
+    with open("my_log_file.txt", "a") as f:
+        f.write(step_message)
+    
   def log_metrics(self, metrics, summ_writer, log_prefix):
     """Log metrics to summary writer and history."""
     history = self._history
